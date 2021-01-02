@@ -16,7 +16,7 @@ public class SearchSpace
 
     private final Min min = new Min();
 
-    private final int DEPTH = 3;
+    private final int TERMINAL_DEPTH = 3;
 
     public SearchSpace(final Node<State> root)
     {
@@ -31,7 +31,7 @@ public class SearchSpace
 
     private boolean cutoffTest(final Node<State> node, int depth)
     {
-        return DEPTH <= depth ||
+        return TERMINAL_DEPTH <= depth ||
                 node.getData().checkmate(Color.WHITE) ||
                 node.getData().checkmate(Color.BLACK);
     }
@@ -64,7 +64,7 @@ public class SearchSpace
 
     private State minimax()
     {
-        for (int n = DEPTH - 1; n > -1; n--)
+        for (int n = TERMINAL_DEPTH - 1; n > -1; n--)
         {
             for (Node<State> node : root.nthDepthNodes(n))
             {
@@ -82,7 +82,7 @@ public class SearchSpace
                 .max(Comparator.comparingInt(val -> val.getData().getUtility()))
                 .orElseThrow().getData();
         System.out.printf("posF: %s, posT: %s%n",
-                state.action().getPosStart(), state.action().getPosEnd());
+                state.getAction().getPosStart(), state.getAction().getPosEnd());
         return state;
     }
 

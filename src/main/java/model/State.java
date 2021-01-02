@@ -2,7 +2,6 @@ package model;
 
 import javafx.scene.paint.Color;
 import model.graphic.*;
-import model.minmax.Action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,7 +196,7 @@ public class State
         this.action = action;
     }
 
-    public Action action()
+    public Action getAction()
     {
         return action;
     }

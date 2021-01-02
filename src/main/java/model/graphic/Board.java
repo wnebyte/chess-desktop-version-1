@@ -4,7 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import model.Pos;
 import model.State;
-import model.minmax.Action;
+import model.Action;
 import util.FrameCreator;
 
 import java.util.ArrayList;

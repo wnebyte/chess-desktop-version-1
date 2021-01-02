@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.graphic.*;
-import model.minmax.Action;
+import model.Action;
 import model.minmax.SearchSpace;
 import org.kordamp.ikonli.Ikon;
 import util.GUIUtils;
@@ -22,7 +22,7 @@ public class GameController
     private boolean lock = false;
 
     public void initialize() {
-        StateGenerator.checkmate(this.board);
+        StateGenerator.checkmateBlack(this.board);
         board.setOnMouseClicked(this::event);
     }
 
@@ -117,7 +117,7 @@ public class GameController
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            board.update(newState.action());
+            board.update(newState.getAction());
             if (newState.checkmate(Color.BLACK)) {
                 System.out.println("CHECKMATE BLACK!");
                 this.end();

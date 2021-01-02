@@ -1,6 +1,4 @@
-package model.minmax;
-
-import model.Pos;
+package model;
 
 public class Action
 {

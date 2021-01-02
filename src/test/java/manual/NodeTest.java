@@ -1,6 +1,7 @@
-package struct;
+package manual;
 
 import org.junit.Test;
+import struct.Node;
 
 import java.util.Arrays;
 
