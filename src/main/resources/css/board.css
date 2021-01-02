@@ -1,0 +1,8 @@
+.board {
+    -fx-background-color: brown;
+
+}
+
+.square {
+    -fx-fill: brown;
+}
