@@ -1,10 +1,12 @@
+package app;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ChessFX extends Application
+public class Main extends Application
 {
     public static void main(String[] args) {
         launch(args);
@@ -13,10 +15,9 @@ public class ChessFX extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Board.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Board.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setMaximized(true);
         stage.show();
     }
 }

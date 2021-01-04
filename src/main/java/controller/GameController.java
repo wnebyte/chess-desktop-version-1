@@ -22,7 +22,7 @@ public class GameController
     private boolean lock = false;
 
     public void initialize() {
-        StateGenerator.checkmateBlack(this.board);
+        StateGenerator.lonelyWhitePawn(board);
         board.setOnMouseClicked(this::event);
     }
 
@@ -38,7 +38,7 @@ public class GameController
             try {
                 if (!lock) {
                     lock = true;
-                    this.ply(square);
+                    this.single(square);
                 }
             } finally {
                 lock = false;
@@ -49,7 +49,7 @@ public class GameController
             try {
                 if (!lock) {
                     lock = true;
-                    this.ply(square);
+                    this.single(square);
                 }
             } finally {
                 lock = false;
@@ -60,7 +60,7 @@ public class GameController
             try {
                 if (!lock) {
                     lock = true;
-                    this.ply(square);
+                    this.single(square);
                 }
             } finally {
                 lock = false;
@@ -68,9 +68,24 @@ public class GameController
         }
     }
 
-    /**
-     *
-     */
+    private void single(final Square square)
+    {
+        if (!square.isEmpty() && square.getChessPiece().getColor().equals(Color.WHITE))
+            board.queue(square);
+
+        else if (board.isQueued() && (square.isEmpty() || square.getChessPiece().getColor().equals(Color.BLACK)))
+        {
+            State state = board.toState();
+            List<Pos> moves = board.getQueued().getChessPiece().moves(state);
+
+            if (moves.contains(square.pos()))
+            {
+                board.update(new Action(board.getQueued().pos(), square.pos()));
+                board.deque();
+            }
+        }
+    }
+
     private void ply(final Square square) {
         if (!square.isEmpty() && square.getChessPiece().getColor().equals(Color.WHITE))
         {

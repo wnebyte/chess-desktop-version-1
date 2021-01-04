@@ -8,7 +8,7 @@ build
 .idea
 
 # Ignore iml file 
-ChessFX.iml
+app.Main.iml
 
 ### Java ##
 *.class

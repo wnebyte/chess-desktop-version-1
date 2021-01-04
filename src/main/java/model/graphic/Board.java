@@ -2,6 +2,7 @@ package model.graphic;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import model.Pos;
 import model.State;
 import model.Action;
@@ -22,30 +23,32 @@ public class Board extends Group
     private final List<Square> legal = new ArrayList<>();
 
     /** constructor creates the board, and assigns values to the class's fields. */
-    public Board() {
+    public Board()
+    {
         final int size = 75;
         final double padding = size / 2.0;
         boolean white = true;
 
         for (int row = 0; row < 8; row++)
         {
-
+            final String NUM = FrameCreator.REVERSE_NUMBERS[row];
             getChildren().add(FrameCreator.createFrame(0, padding + size * row,
-                    padding, size, FrameCreator.REVERSE_NUMBERS[row]));
+                    padding, size, NUM));
 
             for (int col = 0; col < 8; col++)
             {
-                if (row == 0)
-                {
-                    getChildren().add(FrameCreator.createFrame(padding + col * size, 0,
-                            size, padding, FrameCreator.LETTERS[col]));
-                }
+                final String LETTER = FrameCreator.LETTERS[col];
+                getChildren().add(FrameCreator.createFrame(padding + col * size, 0,
+                        size, padding, LETTER));
 
                 white = !white;
                 Square square = new Square(size, white ? Color.WHITE : Color.BLACK,
                         FrameCreator.numbersToInt(col), FrameCreator.reverseNumbersToInt(row));
                 square.setLayoutX(padding + col * size);
                 square.setLayoutY(padding + row * size);
+                Text text = new Text(NUM + LETTER);
+                text.setFill(Color.PURPLE);
+                square.getChildren().add(text);
                 getChildren().add(square);
                 squares.add(square);
 
@@ -134,6 +137,8 @@ public class Board extends Group
     public Square getQueued() {
         return queued;
     }
+
+    public List<Square> getLegal() { return List.copyOf(legal); }
 
     /**
      * careful using this right after updating the board -- some graphical updates are

@@ -10,6 +10,14 @@ import java.util.List;
 
 public class StateGenerator
 {
+
+    public static void lonelyWhitePawn(final Board board)
+    {
+        board.get('H', 1).set(new King(Color.WHITE));
+        board.get('H', 8).set(new King(Color.BLACK));
+        board.get('D', 2).set(new Pawn(Color.WHITE));
+    }
+
     public static void checkmateBlack(final Board board)
     {
         board.clear();

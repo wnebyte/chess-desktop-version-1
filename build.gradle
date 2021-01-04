@@ -6,7 +6,6 @@ plugins {
 group 'com.github.wne'
 version '1.0-SNAPSHOT'
 
-
 javafx {
     version = "12.0.1"
     modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
@@ -22,16 +21,37 @@ sourceSets {
             includes = ["**/*.fxml", "**/*.css", "**/*.png"]
         }
     }
+    test {
+        java {
+            srcDirs = ["src/test/java"]
+        }
+        resources {
+            srcDirs = ["src/test/resources"]
+            includes = ["**/*.fxml", "**/*.css", "**/*.png", "**/*.txt"]
+        }
+    }
 }
-
 
 repositories {
     jcenter()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'de.saxsys', name: 'jfx-testrunner', version: '1.2'
-    implementation 'org.kordamp.ikonli:ikonli-javafx:11.3.5'
-    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:11.3.5'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'org.testfx', name: 'testfx-junit', version: '4.0+'
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: '4.0+'
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-junit', version: '2.0+'
+    testImplementation group: 'org.loadui', name: 'testFx', version: '3.1.2+'
+    testImplementation group: 'com.google.guava', name: 'guava', version: '14.0.1+'
+    testImplementation group: 'de.saxsys', name: 'jfx-testrunner', version: '1.2'
+    testImplementation fileTree(dir: "lib", include: ["*.jar"])
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-javafx', version: '11.3.5'
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-fontawesome5-pack', version: '11.3.5'
+}
+
+test {
+    useJUnit()
+    filter {
+        includeTestsMatching "manual.model.*, manual.struct.*, eyeautomate.*"
+    }
 }

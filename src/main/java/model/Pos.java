@@ -26,6 +26,10 @@ public class Pos implements Cloneable
     }
 
     public Pos(final char x, final int y) {
+        if (!table.containsKey(x))
+            throw new IllegalArgumentException(
+                    "x is invalid."
+            );
         this.x = table.get(x);
         this.y = y;
     }
