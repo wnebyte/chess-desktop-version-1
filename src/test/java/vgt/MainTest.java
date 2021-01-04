@@ -1,6 +1,8 @@
-package eyeautomate;
+package vgt;
 
 import app.Main;
+import eyeautomate.ScriptLogger;
+import eyeautomate.ScriptRunner;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
