@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'jacoco'
 }
 
 group 'com.github.wne'
@@ -50,9 +51,14 @@ dependencies {
 }
 
 test {
+    finalizedBy jacocoTestReport
     useJUnit()
     filter {
         includeTestsMatching "manual.*"
      //   includeTestsMatching "vgt.*"
     }
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }
