@@ -52,8 +52,7 @@ dependencies {
 test {
     useJUnit()
     filter {
-     //   includeTestsMatching "manual.model.*"
-     //   includeTestsMatching "manual.struct.*"
-        includeTestsMatching "vgt.*"
+        includeTestsMatching "manual.*"
+     //   includeTestsMatching "vgt.*"
     }
 }
