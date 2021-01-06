@@ -20,6 +20,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import util.StateGenerator;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,7 +49,6 @@ public class MainTest extends ApplicationTest
         release(new MouseButton[]{});
     }
 
-    @Test
     public void test()
     {
         Node node = mainNode.lookup("#board");
@@ -69,16 +69,26 @@ public class MainTest extends ApplicationTest
 
     }
 
+    public void fileTest()
+    {
+        String path = this.getClass().getResource("/eyeautomate/scripts/test.txt")
+                .getPath();
+
+        File file = new File(path);
+        System.out.println(file.exists());
+    }
+
+    @Test
     public void testWhitePawnMoves()
     {
         ScriptLogger scriptLogger = new ScriptLogger();
         scriptLogger.setExecutionLog(
-                this.getClass().getResource("/eyeautomate/logs/execution_log.txt").toExternalForm()
+                this.getClass().getResource("/eyeautomate/logs/execution_log.txt").getPath()
         );
         ScriptRunner scriptRunner = new ScriptRunner(scriptLogger);
         scriptRunner.setParameter("ImageFolder",
-                this.getClass().getResource("/eyeautomate/images").toExternalForm());
+                this.getClass().getResource("/eyeautomate/images").getPath());
         scriptRunner.runScript(
-                this.getClass().getResource("/eyeautomate/scripts/test.txt").toExternalForm());
+                this.getClass().getResource("/eyeautomate/scripts/test.txt").getPath());
     }
 }

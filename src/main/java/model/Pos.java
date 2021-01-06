@@ -1,6 +1,8 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Class represents the position of a {@link model.graphic.Square}, and or
@@ -15,8 +17,14 @@ public class Pos implements Cloneable
     private final static HashMap<Character, Integer> table = new HashMap<>()
     {
         {
-            put('A', 1);put('B', 2);put('C', 3);put('D', 4);
-            put('E', 5);put('F', 6);put('G', 7);put('H', 8);
+            put('a', 1); put('A', 1);
+            put('b', 2); put('B', 2);
+            put('c', 3); put('C', 3);
+            put('d', 4); put('D', 4);
+            put('e', 5); put('E', 5);
+            put('f', 6); put('F', 6);
+            put('g', 7); put('G', 7);
+            put('h', 8); put('H', 8);
         }
     };
 
@@ -28,13 +36,20 @@ public class Pos implements Cloneable
     public Pos(final char x, final int y) {
         if (!table.containsKey(x))
             throw new IllegalArgumentException(
-                    "x is invalid."
+                    "x is not a valid char"
             );
+
         this.x = table.get(x);
         this.y = y;
     }
 
-    public Pos(final Pos pos, final int relX, final int relY) {
+    public Pos(final Pos pos, final int relX, final int relY)
+    {
+        if (Objects.isNull(pos))
+            throw new IllegalArgumentException(
+                    "pos may not be null"
+            );
+
         this.x = pos.getX() + relX;
         this.y = pos.getY() + relY;
     }
@@ -51,6 +66,8 @@ public class Pos implements Cloneable
     public boolean equals(Object o) {
         if (!( o instanceof Pos))
             return false;
+        if (o == this)
+            return true;
 
         Pos pos = (Pos) o;
         return pos.x == this.x && pos.y == this.y;
@@ -70,7 +87,17 @@ public class Pos implements Cloneable
 
     @Override
     public String toString() {
-        return String.format("(%s, %d)", table.entrySet().stream()
-                .filter(kv -> kv.getValue() == x).findFirst().orElseThrow().getKey(), y);
+        String x = String.valueOf(this.x);
+
+        for (Map.Entry<Character, Integer> entry : table.entrySet())
+        {
+            if (entry.getValue() == this.x)
+            {
+                x = String.valueOf(entry.getKey());
+                break;
+            }
+        }
+
+        return String.format("[%s, %d]", x, this.y);
     }
 }
